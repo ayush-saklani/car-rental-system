@@ -711,7 +711,6 @@ int rate(int hour, int j){
 	total_24 = hour_24 * avail[j].rate_per_day;
 	total_12 = hour_12 * avail[j].rate_per_half;
 	total_1  = hour_1  * avail[j].rate_per_hour;
-	
 	total = total_24 + total_12 + total_1;
 	return total;
 }
