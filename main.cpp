@@ -3,7 +3,7 @@
 #include <fstream>
 #include <windows.h>
 #include <string.h>
-#include<sstream>
+#include <sstream>
 #include <time.h>
 using namespace std;
 //	I have defined all the funtion at the top because some functions call each other at the time of execution :)	//
@@ -39,6 +39,8 @@ void cardata ();				//	It reads and stores data from files to the local variable
 void readUserPass();			//	It reads and stores data from files to the local variable		(essential working function)
 void readavailCar();			//	It reads and stores data from files to the local variable		(essential working function)
 void readcustomerData();  		//	It reads and stores data from files to the local variable		(essential working function)
+void increment_bill();
+void checkbillno();
 
 struct car{
 	char plate_num[10];
@@ -65,6 +67,7 @@ struct pass{
 	car rent[1000];
 	car avail[1000];
 	customer cust[1000];
+	int bill_no_local;
 
 void fullscreen(){
 	keybd_event(VK_MENU,0x38,0,0);
@@ -203,8 +206,13 @@ void existing_customer(){
 	tempCust = customer_Count() - 1;
 	ofstream ofs;
 	ofs.open("temp.txt");
+
+
+
+	ostringstream str1;
+    str1 << bill_no_local;
 	ofstream bill;
-	bill.open("bill.txt");
+	bill.open("C:\\Users\\ayush\\Documents\\mini_bills\\bill"+ str1.str()+".txt") ;
 	cout<<"\n\n\n\n";
 	cout << endl;
 	
@@ -221,6 +229,7 @@ void existing_customer(){
 			cout << cust[i].name;
 			cout<<"\t  \tID ";
 			cout << cust[i].id;
+			cout <<"\t  \tBill no - "<<bill_no_local;
 			cout << "\n\n";
 			coutoo++;
 			bill <<"\n\n\t  \t\t\t\t\t\t\t\t\t Car Rental System :: INVOICE ";
@@ -228,6 +237,7 @@ void existing_customer(){
 			bill << cust[i].name;
 			bill <<"\t  \tcustomer registered ID - ";
 			bill << cust[i].id;
+			bill <<"\t  \tBill no - "<<bill_no_local;
 			bill << "\n\n";
 		}
 	}
@@ -294,8 +304,10 @@ void existing_customer(){
 				bill << "\t    ========================================================================================================================================" << endl;
 			}
 		}
+		if(op==0){bill<<"\n\n\t\tbill currupt......"<<endl<<"\t\ttransaction was probababily cancelled.......";}
 		ofs.close();
 		bill.close();
+		increment_bill();
 		remove("available.txt");
 		rename("temp.txt","available.txt");
 		cardata();
@@ -317,7 +329,7 @@ void existing_customer(){
 		cout << "\t  \t\t\t\tPrice for " << hour << " hours of rent : USD ";
 		cout << tempprice;
 		cout<<"\n\t  \t\t\t\tDont forget to collect your bill .............";
-		Sleep(5000); 
+		Sleep(7000); 
 		system("cls");
 		menu();
 	}
@@ -331,8 +343,13 @@ void add_new_customer (){
 	readavailCar();
 	ofstream ofs;
 	ofs.open("Customer.txt", fstream::app);
+	
+	
+	ostringstream str1;
+    str1 << bill_no_local;
 	ofstream bill;
-	bill.open("bill.txt");
+	bill.open("C:\\Users\\ayush\\Documents\\mini_bills\\bill"+ str1.str()+".txt") ;
+	
 	ofs << endl;
 	ofstream availTemp;
 	availTemp.open("availtemp.txt");
@@ -376,12 +393,14 @@ void add_new_customer (){
 	cout << cust[tempCust].name;
 	cout<<"\t  \tID ";
 	cout << cust[tempCust].id;
+	cout <<"\t  \tBill no - "<<bill_no_local;
 	cout << "\n\n";
 			bill <<"\n\n\t  \t\t\t\t\t\t\t\t\t Car Rental System :: INVOICE ";
 			bill <<"\n\t  \t\t\t\t\tcustomer name - ";
 			bill << cust[tempCust].name;
 			bill <<"\t  \tcustomer registered ID - ";
 			bill << cust[tempCust].id;
+			bill <<"\t  \tBill no - "<<bill_no_local;
 			bill << "\n\n";
 	display_Available_Car();
 	
@@ -424,6 +443,9 @@ void add_new_customer (){
 	remove("available.txt");
 	rename("availtemp.txt","available.txt");
 	if(op==0){
+			bill<<"\n\n\t\tbill currupt......"<<endl<<"\t\ttransaction was probababily cancelled.......";
+			bill.close();
+			increment_bill();
 			cout<<endl;
     		cout<<"\t  \t\t\tCar not found ..... "<<endl;
     		cout<<"\t  \t\t\tReturning to user portal.."<<endl<<endl;
@@ -465,9 +487,10 @@ void add_new_customer (){
 
 			
 	bill.close();
+	increment_bill();
 	readavailCar();
 	cout<<"\n\t  \tDont forget to collect your bill .............";
-	Sleep(5000);
+	Sleep(7000);
 	system("cls");
 	menu();
 	}
@@ -905,7 +928,19 @@ void cardata (){
 	}
 	ifs.close();
 }
-
+void checkbillno(){
+	ifstream ifs;
+	ifs.open("bill_no.txt");
+	ifs>>bill_no_local;
+	ifs.close();
+}
+void increment_bill(){
+	ofstream rebill;
+	rebill.open("bill_no.txt");
+	rebill<<bill_no_local+1;
+	rebill.close();
+	checkbillno();
+}
 int main(){
 	fullscreen();
 	Sleep(1000);
@@ -918,6 +953,7 @@ int main(){
 	readavailCar();
 	readcustomerData();
 	cardata();
+	checkbillno();
 	menu();
 	return 0;
 }

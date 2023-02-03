@@ -4,7 +4,3 @@
 1003;ayush saklani;9411169994;dehradun
 1004;ayush saklani;1478523694;happyland
 1005;honey singh;4204204200;akbhar ni aata?
-
-1007;a;a;a
-1008;1;1;1
-1009;12;1;1
