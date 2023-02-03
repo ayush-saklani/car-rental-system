@@ -3,6 +3,7 @@
 #include <fstream>
 #include <windows.h>
 #include <string.h>
+#include<sstream>
 #include <time.h>
 using namespace std;
 //	I have defined all the funtion at the top because some functions call each other at the time of execution :)	//
@@ -38,6 +39,7 @@ void cardata ();				//	It reads and stores data from files to the local variable
 void readUserPass();			//	It reads and stores data from files to the local variable		(essential working function)
 void readavailCar();			//	It reads and stores data from files to the local variable		(essential working function)
 void readcustomerData();  		//	It reads and stores data from files to the local variable		(essential working function)
+void checkbillno();				//	It reads and stores data from files to the local variable		(essential working function)
 
 struct car{
 	char plate_num[10];
@@ -64,6 +66,7 @@ struct pass{
 	car rent[1000];
 	car avail[1000];
 	customer cust[1000];
+	int bill_no_local;
 void fullscreen(){
 	keybd_event(VK_MENU,0x38,0,0);
 	keybd_event(VK_RETURN,0x1c,0,0);
@@ -903,6 +906,12 @@ void cardata (){
 	}
 	ifs.close();
 }
+void checkbillno(){
+	ifstream ifs;
+	ifs.open("bill_no.txt");
+	ifs>>bill_no_local;
+	ifs.close();
+}
 int main(){
 	fullscreen();
 	Sleep(1000);
@@ -915,6 +924,7 @@ int main(){
 	readavailCar();
 	readcustomerData();
 	cardata();
+	checkbillno();
 	menu();
 	return 0;
 }
