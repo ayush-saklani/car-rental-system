@@ -1,5 +1,10 @@
-1000;AYUSH SAKLANI;9411169994;123456789;DEHRADUN UK07
-1001;ayush;123456;1111;dehradun
-1003;ayush;9411169994;789;dehradun
-1004;ayush;456;564;sad
-1005;honey singh;4204204200;6969;akbhar ni aata?
+1000;ayush saklani;9411169994;dehradun
+1001;veer mahan;6543219870;rishikesh
+1002;saurav gurjar;7531259426;canada
+1003;ayush saklani;9411169994;dehradun
+1004;ayush saklani;1478523694;happyland
+1005;honey singh;4204204200;akbhar ni aata?
+1006;ayush;9876543210;dehradun
+1007;ayush;9456789654;ooho bhai kya haal
+
+1009;ayush;789;456

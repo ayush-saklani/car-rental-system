@@ -54,7 +54,6 @@ struct customer{
 	int id;
 	char name[100];
 	char phone[15];
-	char ic[15];
 	char address[1500];
 };
 struct pass{
@@ -245,6 +244,7 @@ void existing_customer(){
 		int x=available_car_count();
 		cout << "\t  \t\t\t\t\tHours of rent : ";
 		cin >> hour;
+		int op=0;
 		for(int i = 0; i < available_car_count(); i++){
 			if (strcmp(carSelect,avail[i].plate_num) != 0){
 				ofs << avail[i].plate_num;
@@ -270,6 +270,7 @@ void existing_customer(){
 			}
 			else{
 				tempprice=rate(hour,i);
+				op++;
 			}
 		}
 		ofs.close();
@@ -278,12 +279,27 @@ void existing_customer(){
 		rename("temp.txt","available.txt");
 		cardata();
 		readavailCar();
+		if(op==0){
+			cout<<endl;
+    		cout<<"\t  \t\t\tCar not found ..... "<<endl;
+    		cout<<"\t  \t\t\tReturning to user portal.."<<endl<<endl;
+    		cout<<"\t  \t\t\t"<<endl;
+			Sleep(1000);
+    		cout<<"\t  \t\t\tPress Enter to Continue."<<endl;
+    		cout<<"\t  \t\t\t";
+    		getch();
+			system("cls");
+			readavailCar();
+    		user();
+		}
+		else{
 		cout << "\t  \t\t\t\tPrice for " << hour << " hours of rent : USD ";
 		cout << tempprice;
 		Sleep(5000); 
 		system("cls");
 		menu();
 	}
+}
 }
 void add_new_customer (){
 	cout<<"\n\n";
@@ -314,11 +330,6 @@ void add_new_customer (){
 	cout << "\t  \t\t\t\t\t  Phone Number : ";
 	cin.getline(cust[customer_Count()].phone,15);
 	ofs << cust[customer_Count()].phone;
-	ofs << ";";
-	
-	cout << "\t  \t\t\t\t\t  IC : ";
-	cin.getline(cust[customer_Count()].ic,15);
-	ofs << cust[customer_Count()].ic;
 	ofs << ";";
 
 	cout << "\t  \t\t\t\t\t  Address : ";
@@ -351,7 +362,7 @@ void add_new_customer (){
 	cin.getline(carSelect,10);
 	
 	int x=available_car_count();
-	
+	int op=0;
 	for(int i = 0; i < available_car_count(); i++){
 		if (strcmp(carSelect,avail[i].plate_num) != 0){
 			availTemp << avail[i].plate_num;
@@ -375,30 +386,43 @@ void add_new_customer (){
 				availTemp<<endl;
 			}		
 		}
+		else {	op++;	}
 	}
-	ofs.close();
-	
-	remove("available.txt");
-	rename("availtemp.txt","available.txt");
-	
-	cout << "\t  \tHours of rent : ";
-	cin >> hour;
-	int j;
-	for(int i = 0; i < car_count(); i++){
-		if (strcmp(carSelect,rent[i].plate_num) == 0){
-			j = i;
-			rate(hour,j);			
-		}
-	}			
-	cout << "\n\t  \tPrice for " << hour << " hours of rent : USD ";
-	cout << rate(hour,j);
 	
 	availTemp.close();
+	remove("available.txt");
+	rename("availtemp.txt","available.txt");
+	if(op==0){
+			cout<<endl;
+    		cout<<"\t  \t\t\tCar not found ..... "<<endl;
+    		cout<<"\t  \t\t\tReturning to user portal.."<<endl<<endl;
+    		cout<<"\t  \t\t\t"<<endl;
+			Sleep(1000);
+    		cout<<"\t  \t\t\tPress Enter to Continue."<<endl;
+    		cout<<"\t  \t\t\t";
+    		getch();
+			system("cls");
+			readavailCar();
+    		user();
+	}
+	else{
+		cout << "\t  \tHours of rent : ";
+		cin >> hour;
+		int j;
+		for(int i = 0; i < car_count(); i++){
+			if (strcmp(carSelect,rent[i].plate_num) == 0){
+				j = i;
+				rate(hour,j);			
+			}
+		}			
+		cout << "\n\t  \tPrice for " << hour << " hours of rent : USD ";
+		cout << rate(hour,j);
 	readavailCar();
 	
 	Sleep(5000);
 	system("cls");
 	menu();
+	}
 }
 void display_Available_Car(){
 	cout << "\t    Plate Number\tBrand \t\t Model\tCapacity    Colour   Rate Per Hour   Rate Per 12 Hour   Rate Per 24 Hour   Transmission" << endl;
@@ -410,6 +434,7 @@ void display_Available_Car(){
 	}
 }
 void password(){
+	art();
    	string password;
    	char c;
    	cout << "\n\n\n\n\t  \t\t\tpassword: ";
@@ -804,7 +829,6 @@ void readcustomerData(){
 		ifs.ignore();
 		ifs.getline(cust[custNum].name,100,';');
 		ifs.getline(cust[custNum].phone,15,';');
-		ifs.getline(cust[custNum].ic,15,';');
 		ifs.getline(cust[custNum].address,1500);
 		custNum++;
 	} 
