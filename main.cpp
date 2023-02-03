@@ -201,6 +201,8 @@ void existing_customer(){
 	tempCust = customer_Count() - 1;
 	ofstream ofs;
 	ofs.open("temp.txt");
+	ofstream bill;
+	bill.open("bill.txt");
 	cout<<"\n\n\n\n";
 	cout << endl;
 	
@@ -219,6 +221,12 @@ void existing_customer(){
 			cout << cust[i].id;
 			cout << "\n\n";
 			coutoo++;
+			bill <<"\n\n\t  \t\t\t\t\t\t\t\t\t Car Rental System :: INVOICE ";
+			bill <<"\n\t  \t\t\t\t\tcustomer name - ";
+			bill << cust[i].name;
+			bill <<"\t  \tcustomer registered ID - ";
+			bill << cust[i].id;
+			bill << "\n\n";
 		}
 	}
 	if(coutoo==0){
@@ -271,10 +279,21 @@ void existing_customer(){
 			else{
 				tempprice=rate(hour,i);
 				op++;
+				bill << "\t    Plate Number\t\tBrand \t\t Model\tCapacity    Colour   Rate Per Hour   Rate Per 12 Hour   Rate Per 24 Hour   Transmission" << endl;
+				bill << "\t    ========================================================================================================================================" << endl;
+				bill << "\t     " << avail[i].plate_num << "\t\t" << avail[i].brand   << "\t\t " << avail[i].model << "\t   " << avail[i].capacity << "\t     "
+					 << avail[i].colour << "\t  " <<avail[i].rate_per_hour << "\t\t    " << avail[i].rate_per_half << "\t\t    " << avail[i].rate_per_day 
+					 << "\t\t       " << avail[i].transmission << endl;
+				bill << "\t    ========================================================================================================================================" << endl;
+				bill <<"\n\t  \t\t\t\t\tHours of rent : "<<hour<<endl;
+				bill <<"\t  \t\t\t\t\tPrice for " << hour << " hours of rent : USD ";
+				bill << tempprice<<endl;
+				bill <<"\n\t  \t\t\t\t\tThankyou for shopping\n\t  \t\t\t\t\tBE SAFE RIDE SAFE :)  "<<endl;
+				bill << "\t    ========================================================================================================================================" << endl;
 			}
 		}
 		ofs.close();
-		
+		bill.close();
 		remove("available.txt");
 		rename("temp.txt","available.txt");
 		cardata();
@@ -295,6 +314,7 @@ void existing_customer(){
 		else{
 		cout << "\t  \t\t\t\tPrice for " << hour << " hours of rent : USD ";
 		cout << tempprice;
+		cout<<"\n\t  \t\t\t\tDont forget to collect your bill .............";
 		Sleep(5000); 
 		system("cls");
 		menu();
@@ -309,6 +329,8 @@ void add_new_customer (){
 	readavailCar();
 	ofstream ofs;
 	ofs.open("Customer.txt", fstream::app);
+	ofstream bill;
+	bill.open("bill.txt");
 	ofs << endl;
 	ofstream availTemp;
 	availTemp.open("availtemp.txt");
@@ -353,7 +375,12 @@ void add_new_customer (){
 	cout<<"\t  \tID ";
 	cout << cust[tempCust].id;
 	cout << "\n\n";
-	
+			bill <<"\n\n\t  \t\t\t\t\t\t\t\t\t Car Rental System :: INVOICE ";
+			bill <<"\n\t  \t\t\t\t\tcustomer name - ";
+			bill << cust[tempCust].name;
+			bill <<"\t  \tcustomer registered ID - ";
+			bill << cust[tempCust].id;
+			bill << "\n\n";
 	display_Available_Car();
 	
 	cout<<"\n\n\t  \tPlease select car";
@@ -386,7 +413,9 @@ void add_new_customer (){
 				availTemp<<endl;
 			}		
 		}
-		else {	op++;	}
+		else {
+			op++;
+			}
 	}
 	
 	availTemp.close();
@@ -410,15 +439,32 @@ void add_new_customer (){
 		cin >> hour;
 		int j;
 		for(int i = 0; i < car_count(); i++){
-			if (strcmp(carSelect,rent[i].plate_num) == 0){
+			if (strcmp(carSelect,avail[i].plate_num) == 0){
 				j = i;
-				rate(hour,j);			
+				rate(hour,j);		
+				
 			}
 		}			
 		cout << "\n\t  \tPrice for " << hour << " hours of rent : USD ";
 		cout << rate(hour,j);
+				bill << "\t    Plate Number\t\tBrand \t\t Model\tCapacity    Colour   Rate Per Hour   Rate Per 12 Hour   Rate Per 24 Hour   Transmission" << endl;
+				bill << "\t    ========================================================================================================================================" << endl;
+				bill << "\t     " << avail[j].plate_num << "\t\t" << avail[j].brand   << "\t\t " << avail[j].model << "\t   " << avail[j].capacity << "\t     "
+					 << avail[j].colour << "\t  " <<avail[j].rate_per_hour << "\t\t    " << avail[j].rate_per_half << "\t\t    " << avail[j].rate_per_day 
+					 << "\t\t       " << avail[j].transmission << endl;
+				bill << "\t    ========================================================================================================================================" << endl;
+				bill <<"\n\t  \t\t\t\t\tHours of rent : "<<hour<<endl;
+				bill <<"\t  \t\t\t\t\tPrice for " << hour << " hours of rent : USD ";
+				bill << rate(hour,j)<<endl;
+				bill <<"\n\t  \t\t\t\t\tThankyou for shopping\n\t  \t\t\t\t\tBE SAFE RIDE SAFE :)  "<<endl;
+				bill << "\t    ========================================================================================================================================" << endl;	
+
+
+
+			
+	bill.close();
 	readavailCar();
-	
+	cout<<"\n\t  \tDont forget to collect your bill .............";
 	Sleep(5000);
 	system("cls");
 	menu();
@@ -862,7 +908,7 @@ int main(){
 	Sleep(1000);
     system("COLOR F0");
 	Sleep(500);
-    loading_screen();
+    //loading_screen();
 	welcome();
 	system("cls");
 	readUserPass();
