@@ -68,7 +68,7 @@ struct pass{
 	car avail[1000];
 	customer cust[1000];
 	int bill_no_local;
-
+	
 void fullscreen(){
 	keybd_event(VK_MENU,0x38,0,0);
 	keybd_event(VK_RETURN,0x1c,0,0);
