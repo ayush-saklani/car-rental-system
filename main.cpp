@@ -10,7 +10,7 @@ using namespace std;
 void fullscreen();				//	It makes the terminal full screen for better expeirence 		(design assistive function)
 void Date();					//	It display the date and time 									(design assistive function)
 void loading_screen();			//	It diplays the loading screen									(design assistive function)
-void welcome_art();					//	It display welcome when you open the program					(design assistive function)
+void welcome_art();				//	It display welcome when you open the program					(design assistive function)
 void art();						//	It displays the company name art at the top of the page 		(design assistive function)
 void exit_art();				//	It displays the thankyou art when you exit the portal 			(design assistive function)
 
@@ -238,6 +238,7 @@ void existing_customer(){
 			bill <<"\t  \tcustomer registered ID - ";
 			bill << cust[i].id;
 			bill <<"\t  \tBill no - "<<bill_no_local;
+			bill <<"\n\n\t  \t\t\t\t\t\t\t\t  \t Date : "<<Date();
 			bill << "\n\n";
 		}
 	}
@@ -941,6 +942,7 @@ void increment_bill(){
 	rebill.close();
 	checkbillno();
 }
+
 int main(){
 	fullscreen();
 	Sleep(1000);
