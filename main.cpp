@@ -10,7 +10,7 @@ using namespace std;
 void fullscreen();				//	It makes the terminal full screen for better expeirence 		(design assistive function)
 void Date();					//	It display the date and time 									(design assistive function)
 void loading_screen();			//	It diplays the loading screen									(design assistive function)
-void welcome();					//	It display welcome when you open the program					(design assistive function)
+void welcome_art();					//	It display welcome when you open the program					(design assistive function)
 void art();						//	It displays the company name art at the top of the page 		(design assistive function)
 void exit_art();				//	It displays the thankyou art when you exit the portal 			(design assistive function)
 
@@ -39,8 +39,8 @@ void cardata ();				//	It reads and stores data from files to the local variable
 void readUserPass();			//	It reads and stores data from files to the local variable		(essential working function)
 void readavailCar();			//	It reads and stores data from files to the local variable		(essential working function)
 void readcustomerData();  		//	It reads and stores data from files to the local variable		(essential working function)
-void increment_bill();
-void checkbillno();
+void increment_bill();			//	It reads and stores data from files to the local variable		(essential working function)	
+void checkbillno();				//	It reads and stores data from files to the local variable		(essential working function)
 
 struct car{
 	char plate_num[10];
@@ -83,7 +83,7 @@ void Date(){
     strftime(buf, sizeof(buf), "\n\t  \t\t\t\t\t\tDATE: %d/%m/%Y TIME: %X", &tstruct);
     cout<< buf<<endl;
 }
-void welcome(){
+void welcome_art(){
 	ifstream ifs ("welcome.txt");    
 	system("cls");
 	while (ifs.good()){
@@ -125,7 +125,7 @@ void loading_screen(){
         cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n       \t\t\t\t\t\t\t\t\t loading ........"<<i<<"%";
         Sleep(40);
     }
-    cout<<"\n\t\t\t\t\tpress any key to continue........"<<endl;
+    cout<<"\n\t\t\t\t\t\tpress any key to continue........"<<endl;
     cout<<"\t\t\t\t\t";
     getch();	
 }
@@ -133,10 +133,10 @@ void menu(){
 	int x;
 	art();
 	cout << endl;
-	cout<<"\n\t  \t\t\t\t\t\t\t  1. ADMIN";
-	cout<<"\n\t  \t\t\t\t\t\t\t  2. USER";
-	cout<<"\n\t  \t\t\t\t\t\t\t  3. T%C";
-	cout<<"\n\t  \t\t\t\t\t\t\t  4. EXIT"<<endl<<"\n";
+	cout<<"\n\t  \t\t\t\t\t\t\t  1. Admin Portal";
+	cout<<"\n\t  \t\t\t\t\t\t\t  2. User Portal";
+	cout<<"\n\t  \t\t\t\t\t\t\t  3. Terms and conditions";
+	cout<<"\n\t  \t\t\t\t\t\t\t  4. Exit"<<endl<<"\n";
 	cout<<"\n\t  \t\t\t\t\t\t\tINPUT :";
 	cin>>x;
 	system("cls");
@@ -183,9 +183,9 @@ void user(){
 	int x;
 	art();
 	cout << endl;
-	cout<<"\n\t  \t\t\t\t\t\t\t  1. NEW";
-	cout<<"\n\t  \t\t\t\t\t\t\t  2. EXISTING";
-	cout<<"\n\t  \t\t\t\t\t\t\t  3. MAIN MENU"<<endl;
+	cout<<"\n\t  \t\t\t\t\t\t\t  1. New User";
+	cout<<"\n\t  \t\t\t\t\t\t\t  2. Existing User";
+	cout<<"\n\t  \t\t\t\t\t\t\t  3. Go to Main Menu"<<endl;
 	cout<<"\n\n\t  \t\t\t\t\t\t\tINPUT :";
 	cin>>x;
 	system("cls");
@@ -508,17 +508,17 @@ void password(){
 	art();
    	string password;
    	char c;
-   	cout << "\n\n\n\n\t  \t\t\tpassword: ";
+   	cout << "\n\n\n\n\t  \t\t\tEnter Password: ";
 		while(c != '\r'){ 
         	c = getch();
-        	if(c == '\b'){   //If the Backspace is pressed then we have to erase 1 '*' 
-        	    if(password.size() != 0){  //If the password string contains data, erase last character
+        	if(c == '\b'){  
+        	    if(password.size() != 0){  
         	       cout << "\b \b";
         	       password.erase(password.size() - 1, 1);
         	    }
         	    continue;
         	}
-        	else if(c <= '9' && c >= '0' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){  //If user enters 1-9, a-z, or A-Z, add it to the password and display an '*'
+        	else if(c <= '9' && c >= '0' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
         	    password += c;
         	    cout << "*";
         	}
@@ -538,7 +538,8 @@ void password(){
       	}	
 		else{
 			cout<<endl;
-    		cout<<"\t  \t\t\tWrong password.. Call Administrator"<<endl;
+    		cout<<"\t  \t\t\tWrong password........."<<endl;
+			Sleep(1000);
     		cout<<"\t  \t\t\tReturning to Main Menu.."<<endl<<endl;
     		cout<<"\t  \t\t\t"<<endl;
 			Sleep(1000);
@@ -553,13 +554,13 @@ void admin(){
 	int x;
 	art();
 	cout << endl;
-	cout<<"\n\t  \t\t\t\t\t\t\t  1. ADD ADMIN";
-	cout<<"\n\t  \t\t\t\t\t\t\t  2. SHOW DATA";
-	cout<<"\n\t  \t\t\t\t\t\t\t  3. ADD CAR";
-	cout<<"\n\t  \t\t\t\t\t\t\t  4. DELETE CAR";
-	cout<<"\n\t  \t\t\t\t\t\t\t  5. RESET AVAILABLE CAR";
-	cout<<"\n\t  \t\t\t\t\t\t\t  6. LOG OFF"<<endl<<"\n";
-	cout<<"\t  \t\t\t\t\t\t\tINPUT :";
+	cout<<"\n\t  \t\t\t\t\t\t\t  1. Add new Admin";
+	cout<<"\n\t  \t\t\t\t\t\t\t  2. Show All Cars (Rented out and Available )";
+	cout<<"\n\t  \t\t\t\t\t\t\t  3. Add New Car";
+	cout<<"\n\t  \t\t\t\t\t\t\t  4. Delete a Car";
+	cout<<"\n\t  \t\t\t\t\t\t\t  5. Reset Available Car";
+	cout<<"\n\t  \t\t\t\t\t\t\t  6. Log Off"<<endl<<"\n";
+	cout<<"\t  \t\t\t\t\t\t\tInput ::";
 	cin>>x;
 	system("cls");
 	if (x==1){
@@ -671,7 +672,7 @@ void add_new_admin(){
 	char c;
 
 	cout << "\n\n\n\n\t  \t\t\tID(DEFAULT): "<<userPass[user_count()].ID;
-	cout << "\n\t  \t\t\tADD password: ";
+	cout << "\n\t  \t\t\tAdd password: ";
 
 	while(c != '\r'){
         c = getch();
@@ -682,7 +683,7 @@ void add_new_admin(){
             }
             continue;
         }
-        else if(c <= '9' && c >= '0' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){  //If user enters 1-9, a-z, or A-Z, add it to the password and display an asterisk
+        else if(c <= '9' && c >= '0' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){  
             password += c;
             cout << "*";
         }
@@ -711,9 +712,9 @@ void showcarData(){
 			<< "\t\t       " << rent[i].transmission << endl;
 	}
 	cout << "\n\n";
-	cout<<"\n\t  \t\t\t\t\t  1. BACK";
-	cout<<"\n\t  \t\t\t\t\t  2. MAIN MENU"<<endl<<"\n\n";
-	cout<<"\t  \t\t\t\t\tINPUT :";
+	cout<<"\n\t  \t\t\t\t\t  1. Back";
+	cout<<"\n\t  \t\t\t\t\t  2. Main Menu"<<endl<<"\n\n";
+	cout<<"\t  \t\t\t\t\tInput ::";
 	cin >> x;
 	system("cls");
 
@@ -733,8 +734,8 @@ void delete_car(){
 	cout << endl;
 	display_car();
 	cout << "\n\n";
-	cout << "\t   \t\tEnter the car plate number that are going to be deleted (CAPITAL LETTER W/OUT SPACE): "<<endl;
-	cout << "\t    \t\t\t\t\t\t\t";
+	cout << "\t   \t\tEnter the car plate number that are going to be deleted : "<<endl;
+	cout << "\t    \t\t\t\t\t";
 	cin >> ws;
 	cin.getline(plate,10);
 	int x=car_count();
@@ -781,14 +782,13 @@ void display_car(){
 void terms_and_conditons(){
 	art();
 	cout<<endl;
-	cout<<"\n\t  \t\t\t1. ANY SORT OF MODIFICATIONS ON THE CAR IS NOT ALLOWED";
+	cout<<"\n\t  \t\t\t1. ANY SORT OF MODIFICATIONS TO THE CAR IS NOT ALLOWED";
 	cout<<"\n\t  \t\t\t2. TAKE CARE OF YOUR STUFF ON YOUR OWN";
-	cout<<"\n\t  \t\t\t3. IN CASE OF ACCIDENT, ALL COSTING IS PAID BY THE DRIVER";
+	cout<<"\n\t  \t\t\t3. IN CASE OF ACCIDENT, ALL COSTING IS INCURRED BY THE DRIVER";
 	cout<<"\n\t  \t\t\t4. PREPARE ITEM AS BELOW";
 	cout<<"\n\t  \t\t\t     =>COPY OF IC, LICENSE";
 	cout<<"\n\t  \t\t\t     =>ADVANCE DEPOSIT (APPLICABLE DIFFRENTLY FOR DIFFRENT CARS)";
-	cout<<"\n\t  \t\t\t5. ADDITIONAL CHARGE APPLICABLE IN CASE OF LATE RETURNS";
-	cout<<"\n\t  \t\t\t6. SAFE DRIVE!";
+	cout<<"\n\t  \t\t\t5. BE SAFE AND DRIVE SAFE!";
 	cout<<"\n\n\n";
 	cout<<"\n\t  \t\t\t                             PRESS ANY KEY TO CONTINUE.........\n\t\t\t\t ";	
 	getch();
@@ -946,8 +946,8 @@ int main(){
 	Sleep(1000);
     system("COLOR F0");
 	Sleep(500);
-    //loading_screen();
-	welcome();
+    loading_screen();
+	welcome_art();
 	system("cls");
 	readUserPass();
 	readavailCar();
