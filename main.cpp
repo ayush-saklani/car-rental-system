@@ -238,7 +238,7 @@ void existing_customer(){
 			bill <<"\t  \tcustomer registered ID - ";
 			bill << cust[i].id;
 			bill <<"\t  \tBill no - "<<bill_no_local;
-			bill <<"\n\n\t  \t\t\t\t\t\t\t\t  \t Date : "<<Date();
+		//	bill <<"\n\n\t  \t\t\t\t\t\t\t\t  \t Date : "<<Date();
 			bill << "\n\n";
 		}
 	}
