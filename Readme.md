@@ -65,7 +65,7 @@ Welcome to the Car Rental System repository! This is a C++ program designed to m
 
 ## Contributing
 
-Although this is a very basic C++ project but it has a very deep understading of file management and structures and there is always some room for improvement. This is a bit raw implementaion and it needs some finishing. Use of Classes and suitable Data Structure like vectors is next step for this project. 
+Although this is a very basic C++ project but it has a very deep understading of file management and structures and there is always some room for improvement. This is a bit raw implementaion and it needs some finishing. Use of Classes and suitable Data Structure like vectors is next step for this proj  ect. 
 
 Therefore Contributions are welcome! If you'd like to contribute to the project, please fork the repository, make your changes, and submit a pull request. Ensure your code follows the existing coding style and standards.
 
